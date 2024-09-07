@@ -1,4 +1,5 @@
-// This file is for Floating Crystal Platform opacity, making them visible all the time so you can easily follow them while doing the puzzle. (Note that they are visible even when the puzzle is not active, this is a side effect I'm too lazy to fix and it'll probably help more than harm).
+// Floating crystal platform shader
+// Makes them visible without having to go onto them, one down-side is that they are visible even when they have no collision.
 Texture2D<float4> t7 : register(t7);
 
 Texture2D<float4> t6 : register(t6);
@@ -46,7 +47,7 @@ cbuffer cb1 : register(b1)
 
 cbuffer cb0 : register(b0)
 {
-  float4 cb0[439];
+  float4 cb0[447];
 }
 
 
@@ -85,16 +86,16 @@ void main(
   uint4 bitmask, uiDest;
   float4 fDest;
 
-  r0.xy = cmp(float2(0,0) != cb0[415].zx);
+  r0.xy = cmp(float2(0,0) != cb0[423].zx);
   if (r0.x != 0) {
-    r0.xz = v2.xy * cb0[416].xy + cb0[416].zw;
-    r1.x = cb1[0].y * cb0[422].y;
-    r1.y = cb1[0].y * cb0[427].x;
-    r1.xy = v6.xy * cb0[422].xx + r1.xy;
+    r0.xz = v2.xy * cb0[424].xy + cb0[424].zw;
+    r1.x = cb1[0].y * cb0[430].y;
+    r1.y = cb1[0].y * cb0[435].x;
+    r1.xy = v6.xy * cb0[430].xx + r1.xy;
     r0.xz = r1.xy + r0.xz;
     r0.xzw = t0.Sample(s6_s, r0.xz).xyz;
     r0.xzw = r0.xzw * float3(2,2,2) + float3(-1,-1,-1);
-    r0.xz = cb0[417].xx * r0.xz;
+    r0.xz = cb0[425].xx * r0.xz;
     r1.x = v9.x;
     r1.y = v10.x;
     r1.z = v4.x;
@@ -128,7 +129,7 @@ void main(
   r2.y = r1.y * 0.5 + 0.5;
   r1.x = rcp(v5.w);
   r1.xy = v5.xy * r1.xx;
-  r1.z = cmp(0 != cb0[130].x);
+  r1.z = cmp(0 != cb0[138].x);
   if (r1.z != 0) {
     r3.x = cb3[0].x;
     r3.y = cb3[1].x;
@@ -150,37 +151,37 @@ void main(
   } else {
     r1.z = 1;
   }
-  r3.xyzw = cmp(cb0[175].xxxx == float4(0,1,2,3));
+  r3.xyzw = cmp(cb0[183].xxxx == float4(0,1,2,3));
   r2.zw = r3.ww ? float2(0,0) : v2.xy;
   r2.zw = r3.zz ? r1.xy : r2.zw;
   r2.zw = r3.yy ? r2.xy : r2.zw;
   r2.zw = r3.xx ? v2.xy : r2.zw;
   r1.zw = r2.zw * r1.zz;
-  r1.zw = r1.zw * cb0[129].xy + cb0[129].zw;
-  r3.x = cb1[0].y * cb0[135].z + cb0[145].x;
-  r3.y = cb1[0].y * cb0[140].x + cb0[150].x;
+  r1.zw = r1.zw * cb0[137].xy + cb0[137].zw;
+  r3.x = cb1[0].y * cb0[143].z + cb0[153].x;
+  r3.y = cb1[0].y * cb0[148].x + cb0[158].x;
   r2.zw = frac(r3.xy);
   r1.zw = r2.zw + r1.zw;
-  r1.zw = v6.xy * cb0[135].xy + r1.zw;
+  r1.zw = v6.xy * cb0[143].xy + r1.zw;
   r3.xyzw = t1.Sample(s1_s, r1.zw).xyzw;
-  r4.xyzw = cmp(cb0[130].yyyy == float4(1,2,3,4));
+  r4.xyzw = cmp(cb0[138].yyyy == float4(1,2,3,4));
   r5.xyz = r4.www ? r3.www : r3.xyz;
   r5.xyz = r4.zzz ? r3.zzz : r5.xyz;
   r4.yzw = r4.yyy ? r3.yyy : r5.xyz;
   r4.xyz = r4.xxx ? r3.xxx : r4.yzw;
-  r5.xyz = cmp(cb0[130].zzz == float3(0,1,2));
+  r5.xyz = cmp(cb0[138].zzz == float3(0,1,2));
   r1.z = r5.z ? r3.y : r3.z;
   r1.z = r5.y ? r3.x : r1.z;
   r1.z = r5.x ? r3.w : r1.z;
-  r1.w = cb0[155].w * cb0[130].w;
+  r1.w = cb0[163].w * cb0[138].w;
   r1.z = r1.z * r1.w;
-  r1.w = cmp(cb0[130].y != 0.000000);
-  r2.z = saturate(cb0[170].x * r4.x);
-  r3.xyz = -cb0[165].xyz + cb0[160].xyz;
-  r3.xyz = r2.zzz * r3.xyz + cb0[165].xyz;
+  r1.w = cmp(cb0[138].y != 0.000000);
+  r2.z = saturate(cb0[178].x * r4.x);
+  r3.xyz = -cb0[173].xyz + cb0[168].xyz;
+  r3.xyz = r2.zzz * r3.xyz + cb0[173].xyz;
   r3.xyz = r1.www ? r3.xyz : r4.xyz;
-  r4.xyz = cb0[155].xyz * r3.xyz;
-  r1.w = cmp(0 != cb0[175].z);
+  r4.xyz = cb0[163].xyz * r3.xyz;
+  r1.w = cmp(0 != cb0[183].z);
   r1.w = r1.w ? 0 : 1;
   r5.x = dot(v9.xyz, v3.xyz);
   r5.y = dot(v10.xyz, v3.xyz);
@@ -190,105 +191,105 @@ void main(
   r6.xyz = cb1[5].xyz + -v8.xyz;
   r2.w = dot(r6.xyz, r6.xyz);
   r3.w = sqrt(r2.w);
-  r7.xyzw = cmp(cb0[240].wwww == float4(0,1,2,3));
+  r7.xyzw = cmp(cb0[248].wwww == float4(0,1,2,3));
   r5.zw = r7.ww ? v7.zw : 0;
   r5.zw = r7.zz ? v7.xy : r5.zw;
   r5.zw = r7.yy ? v6.xy : r5.zw;
   r5.zw = r7.xx ? v2.xy : r5.zw;
-  r5.zw = r5.zw * cb0[243].xy + cb0[243].zw;
-  r4.w = cmp(0 != cb0[249].x);
+  r5.zw = r5.zw * cb0[251].xy + cb0[251].zw;
+  r4.w = cmp(0 != cb0[257].x);
   if (r4.w != 0) {
-    r7.xy = cb1[0].yy * cb0[257].xy;
+    r7.xy = cb1[0].yy * cb0[265].xy;
     r7.xy = frac(r7.xy);
-    r4.w = (uint)cb0[252].y;
+    r4.w = (uint)cb0[260].y;
     r7.xy = r7.xy + r5.zw;
     r7.xyzw = t3.Sample(s3_s, r7.xy).xyzw;
     r4.w = dot(r7.xyzw, icb[r4.w+0].xyzw);
-    r4.w = cb0[252].z * r4.w;
-    r7.xy = cb1[0].yy * cb0[250].xy;
-    r7.zw = cb1[0].yy * cb0[251].xy;
+    r4.w = cb0[260].z * r4.w;
+    r7.xy = cb1[0].yy * cb0[258].xy;
+    r7.zw = cb1[0].yy * cb0[259].xy;
     r7.xyzw = frac(r7.xyzw);
-    r7.xyzw = r4.wwww * cb0[252].xxxx + r7.xyzw;
+    r7.xyzw = r4.wwww * cb0[260].xxxx + r7.xyzw;
   } else {
     r7.xyzw = float4(0,0,0,0);
   }
-  r4.w = cb0[274].x + -r3.w;
+  r4.w = cb0[282].x + -r3.w;
   r4.w = saturate(0.100000001 * r4.w);
-  r3.w = cb0[300].x + -r3.w;
+  r3.w = cb0[308].x + -r3.w;
   r3.w = saturate(0.100000001 * r3.w);
   r6.w = cmp(0 < r4.w);
   if (r6.w != 0) {
-    r6.w = (uint)cb0[258].x;
-    r8.xy = cb0[279].xx * r5.xy;
+    r6.w = (uint)cb0[266].x;
+    r8.xy = cb0[287].xx * r5.xy;
     r8.xy = r8.xy * r1.ww;
-    r8.xy = r5.zw * cb0[269].xx + r8.xy;
+    r8.xy = r5.zw * cb0[277].xx + r8.xy;
     r7.xy = r8.xy + r7.xy;
     r8.xyzw = t3.Sample(s3_s, r7.xy).xyzw;
     r6.w = dot(r8.xyzw, icb[r6.w+0].xyzw);
-    r8.xyz = -cb0[264].xyz + cb0[259].xyz;
-    r8.xyz = r6.www * r8.xyz + cb0[264].xyz;
+    r8.xyz = -cb0[272].xyz + cb0[267].xyz;
+    r8.xyz = r6.www * r8.xyz + cb0[272].xyz;
     r8.xyz = r8.xyz * r4.www;
   } else {
     r8.xyz = float3(0,0,0);
   }
   r4.w = cmp(0 < r3.w);
   if (r4.w != 0) {
-    r4.w = (uint)cb0[284].x;
-    r5.xy = cb0[305].xx * r5.xy;
+    r4.w = (uint)cb0[292].x;
+    r5.xy = cb0[313].xx * r5.xy;
     r5.xy = r5.xy * r1.ww;
-    r5.xy = r5.zw * cb0[295].xx + r5.xy;
+    r5.xy = r5.zw * cb0[303].xx + r5.xy;
     r5.xy = r5.xy + r7.zw;
     r5.xyzw = t3.Sample(s3_s, r5.xy).xyzw;
     r1.w = dot(r5.xyzw, icb[r4.w+0].xyzw);
-    r5.xyz = -cb0[290].xyz + cb0[285].xyz;
-    r5.xyz = r1.www * r5.xyz + cb0[290].xyz;
+    r5.xyz = -cb0[298].xyz + cb0[293].xyz;
+    r5.xyz = r1.www * r5.xyz + cb0[298].xyz;
     r5.xyz = r5.xyz * r3.www;
   } else {
     r5.xyz = float3(0,0,0);
   }
-  r1.w = cmp(cb0[240].z == 2.000000);
+  r1.w = cmp(cb0[248].z == 2.000000);
   if (r1.w == 0) {
-    r7.xyzw = cmp(cb0[240].xxxz == float4(0,1,2,0));
+    r7.xyzw = cmp(cb0[248].xxxz == float4(0,1,2,0));
     r1.xy = r7.zz ? r1.xy : v2.xy;
     r1.xy = r7.yy ? r2.xy : r1.xy;
     r1.xy = r7.xx ? v2.xy : r1.xy;
-    r1.xy = r1.xy * cb0[214].xy + cb0[214].zw;
-    r2.x = cb1[0].y * cb0[225].z;
-    r2.y = cb1[0].y * cb0[230].x;
+    r1.xy = r1.xy * cb0[222].xy + cb0[222].zw;
+    r2.x = cb1[0].y * cb0[233].z;
+    r2.y = cb1[0].y * cb0[238].x;
     r2.xy = frac(r2.xy);
     r1.xy = r2.xy + r1.xy;
     r9.xyzw = t2.Sample(s2_s, r1.xy).xyzw;
-    r10.xyzw = cmp(cb0[225].yyyy == float4(0,1,2,3));
+    r10.xyzw = cmp(cb0[233].yyyy == float4(0,1,2,3));
     r1.x = r10.w ? r9.w : 0;
     r1.x = r10.z ? r9.z : r1.x;
     r1.x = r10.y ? r9.y : r1.x;
     r1.x = r10.x ? r9.x : r1.x;
-    r1.y = cb0[235].x * r1.x;
-    r1.w = cmp(0 != cb0[225].x);
-    r1.x = r1.x * cb0[235].x + 1;
+    r1.y = cb0[243].x * r1.x;
+    r1.w = cmp(0 != cb0[233].x);
+    r1.x = r1.x * cb0[243].x + 1;
     r1.x = r1.w ? r1.x : r1.y;
-    r1.x = cb0[244].x * r1.x;
-    r1.y = r2.z * cb0[315].x + -cb0[315].x;
+    r1.x = cb0[252].x * r1.x;
+    r1.y = r2.z * cb0[323].x + -cb0[323].x;
     r1.y = exp2(r1.y);
     r1.y = r2.z * r1.y;
     r1.y = r1.x * r1.y + -r1.x;
-    r1.x = cb0[310].x * r1.y + r1.x;
+    r1.x = cb0[318].x * r1.y + r1.x;
     r5.xyz = r8.xyz + r5.xyz;
     r1.y = saturate(r1.x);
-    r3.xyz = -r3.xyz * cb0[155].xyz + r5.xyz;
+    r3.xyz = -r3.xyz * cb0[163].xyz + r5.xyz;
     r3.xyz = r1.yyy * r3.xyz + r4.xyz;
     r1.xyw = r5.xyz * r1.xxx + r4.xyz;
     r4.xyz = r7.www ? r3.xyz : r1.xyw;
   }
-  r1.x = (uint)cb0[320].y;
+  r1.x = (uint)cb0[328].y;
   r1.x = dot(v1.xyzw, icb[r1.x+0].xyzw);
-  r1.x = saturate(cb0[320].w * r1.x);
-  r1.y = cmp(cb0[320].z == 0.000000);
+  r1.x = saturate(cb0[328].w * r1.x);
+  r1.y = cmp(cb0[328].z == 0.000000);
   if (r1.y != 0) {
     r3.xyz = float3(1,1,1) + -r4.xyz;
     r3.xyz = r1.xxx * r3.xyz + r4.xyz;
   } else {
-    r1.yw = cmp(cb0[320].zz == float2(1,2));
+    r1.yw = cmp(cb0[328].zz == float2(1,2));
     r5.xyz = cmp(float3(0.5,0.5,0.5) >= r4.xyz);
     r5.xyz = r5.xyz ? float3(1,1,1) : 0;
     r7.xyz = r4.xyz * float3(2,2,2) + float3(-1,-1,-1);
@@ -300,9 +301,9 @@ void main(
     r5.xyz = r1.www ? r5.xyz : r7.xyz;
     r3.xyz = r1.yyy ? r4.xyz : r5.xyz;
   }
-  r1.x = cmp(cb0[333].y == 0.000000);
+  r1.x = cmp(cb0[341].y == 0.000000);
   if (r1.x != 0) {
-    r1.x = cmp(cb0[333].x == 1.000000);
+    r1.x = cmp(cb0[341].x == 1.000000);
     r1.xyw = r1.xxx ? -v3.xyz : v3.xyz;
     r2.x = dot(r1.xyw, r0.xzw);
     r2.x = r2.x + r2.x;
@@ -321,66 +322,66 @@ void main(
     r3.w = dot(r2.xyw, r2.xyw);
     r3.w = rsqrt(r3.w);
     r2.xyw = r3.www * r2.xyw;
-    r5.xyz = cb0[334].xyz + -r4.xyz;
+    r5.xyz = cb0[342].xyz + -r4.xyz;
     r3.w = dot(r5.xyz, r2.xyw);
     r4.w = dot(r5.xyz, r5.xyz);
-    r4.w = -cb0[335].x * cb0[335].x + r4.w;
+    r4.w = -cb0[343].x * cb0[343].x + r4.w;
     r4.w = r3.w * r3.w + -r4.w;
     r5.x = cmp(r4.w >= 0);
     r4.w = sqrt(r4.w);
     r3.w = r4.w + r3.w;
     r2.xyw = r2.xyw * r3.www + r4.xyz;
-    r2.xyw = -cb0[334].xyz + r2.xyw;
+    r2.xyw = -cb0[342].xyz + r2.xyw;
     r3.w = dot(r2.xyw, r2.xyw);
     r3.w = rsqrt(r3.w);
     r2.xyw = r3.www * r2.xyw;
     r1.xyw = r5.xxx ? r2.xyw : float3(0,1,0);
   }
   r1.xyw = t4.Sample(s4_s, r1.xyw).xyz;
-  r1.xyw = r1.xyw * cb0[328].xxx + r3.xyz;
-  r2.xyw = r0.xzw * cb0[355].xxx + cb2[0].xyz;
+  r1.xyw = r1.xyw * cb0[336].xxx + r3.xyz;
+  r2.xyw = r0.xzw * cb0[363].xxx + cb2[0].xyz;
   r3.x = dot(r2.xyw, r2.xyw);
   r3.x = rsqrt(r3.x);
   r2.xyw = r3.xxx * r2.xyw;
   r2.x = saturate(dot(v3.xyz, -r2.xyw));
   r2.x = max(9.99999975e-05, r2.x);
   r2.x = log2(r2.x);
-  r2.x = cb0[360].x * r2.x;
+  r2.x = cb0[368].x * r2.x;
   r2.x = exp2(r2.x);
-  r2.yw = v2.xy * cb0[343].xy + cb0[343].zw;
-  r3.xy = cb1[0].yy * cb0[344].xy;
+  r2.yw = v2.xy * cb0[351].xy + cb0[351].zw;
+  r3.xy = cb1[0].yy * cb0[352].xy;
   r3.xy = frac(r3.xy);
   r2.yw = r3.xy + r2.yw;
   r2.y = t5.Sample(s5_s, r2.yw).x;
-  r2.y = cb0[345].x * r2.y;
-  r3.xyz = cb0[350].xyz * r1.xyw;
-  r2.x = r2.x * cb0[365].x + cb0[370].x;
+  r2.y = cb0[353].x * r2.y;
+  r3.xyz = cb0[358].xyz * r1.xyw;
+  r2.x = r2.x * cb0[373].x + cb0[378].x;
   r3.xyz = r3.xyz * r2.xxx;
   r2.xyw = r3.xyz * r2.yyy;
-  r1.xyw = r2.xyw * cb0[375].xxx + r1.xyw;
+  r1.xyw = r2.xyw * cb0[383].xxx + r1.xyw;
   r2.x = dot(cb2[0].xyz, -v3.xyz);
   r2.x = max(9.99999975e-05, r2.x);
   r2.x = log2(r2.x);
-  r2.x = cb0[380].x * r2.x;
+  r2.x = cb0[388].x * r2.x;
   r2.x = exp2(r2.x);
-  r2.y = cmp(0 != cb0[385].x);
+  r2.y = cmp(0 != cb0[393].x);
   r3.xyz = r2.yyy ? cb0[2].xyz : float3(1,1,1);
   r2.xyw = r3.xyz * r2.xxx;
-  r2.xyw = cb0[386].xyz * r2.xyw;
+  r2.xyw = cb0[394].xyz * r2.xyw;
   r3.x = v3.y * -v3.y + 1;
   r1.xyw = r2.xyw * r3.xxx + r1.xyw;
   r2.x = min(1, abs(r2.z));
   r2.x = 1 + -r2.x;
   r2.x = max(9.99999975e-05, r2.x);
   r2.x = log2(r2.x);
-  r2.x = cb0[391].y * r2.x;
+  r2.x = cb0[399].y * r2.x;
   r2.x = exp2(r2.x);
-  r2.x = saturate(cb0[396].x * r2.x);
-  r2.yzw = cmp(float3(0,0,0) != cb0[406].yxz);
+  r2.x = saturate(cb0[404].x * r2.x);
+  r2.yzw = cmp(float3(0,0,0) != cb0[414].yxz);
   r3.x = 1 + -r2.x;
   r2.x = r2.y ? r3.x : r2.x;
-  r3.xyz = cb0[401].xyz + r1.xyw;
-  r4.xyz = cb0[401].xyz * r1.xyw;
+  r3.xyz = cb0[409].xyz + r1.xyw;
+  r4.xyz = cb0[409].xyz * r1.xyw;
   r3.xyz = r2.zzz ? r3.xyz : r4.xyz;
   r3.xyz = r3.xyz + -r1.xyw;
   r1.xyw = r2.xxx * r3.xyz + r1.xyw;
@@ -395,15 +396,15 @@ void main(
   r1.z = r2.x * r1.z;
   r1.z = r1.z * r2.w;
   r1.z = saturate(cb0[22].x * r1.z);
-  r2.xz = float2(0.0416660011,0.0416660011) * cb0[63].ww;
+  r2.xz = float2(0.0416660011,0.0416660011) * cb0[66].ww;
   r2.y = 0.5;
   r3.xyz = t6.Sample(s0_s, r2.xy).xyz;
   r3.xyz = r3.xyz * r1.xyw;
-  r2.w = 0.0078125 * cb0[432].x;
+  r2.w = 0.0078125 * cb0[440].x;
   r1.x = t7.Sample(s0_s, r2.zw).x;
-  r1.x = r1.x * cb0[432].y + cb0[432].z;
+  r1.x = r1.x * cb0[440].y + cb0[440].z;
   r1.x = -1 + r1.x;
-  r1.x = cb0[433].x * r1.x + 1;
+  r1.x = cb0[441].x * r1.x + 1;
   r1.x = r1.z * r1.x + -0.0399999991;
   r1.y = cmp(r1.x < 0.949999988);
   if (r1.y != 0) {
@@ -423,8 +424,8 @@ void main(
     r1.x = r1.x * 17 + -r1.y;
     r1.x = -0.00999999978 + r1.x;
     r1.x = cmp(r1.x < 0);
-//  if (r1.x != 0) discard;
-//  Commenting the line above makes them visible all the time.
+    // Uncomment the line below to make them act like normal
+    // if (r1.x != 0) discard;  
   }
   r1.x = max(r3.y, r3.z);
   r1.w = max(r3.x, r1.x);
@@ -435,10 +436,10 @@ void main(
   r1.w = saturate(0.0500000007 * r1.w);
   r1.w = sqrt(r1.w);
   r1.w = cb0[27].x * r1.w;
-  o1.w = saturate(1 + -cb0[438].x);
+  o1.w = saturate(1 + -cb0[446].x);
   o1.xyz = cb0[27].yyy * r3.xyz;
   o0.xyz = r0.xzw * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
-  r0.x = 0.00392156886 * cb0[415].y;
+  r0.x = 0.00392156886 * cb0[423].y;
   o2.z = r0.y ? r0.x : r1.z;
   o0.w = 0;
   o2.xyw = r1.xyw;
